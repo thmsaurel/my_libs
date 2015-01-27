@@ -1,41 +1,11 @@
 # C Class
-**TODO**
+This is a file for C Class in ENSIBS. <br>
+All files are personnal implementation of standard C function.
 
-* strcat
-    * my_strcat
-    * my_strncat
+**norm** repo describe the norm use in this files
 
-* ctrcpy
-    * my_strcpy
-    * my_strncpy
-
-* strcmp
-    * my_strcmp
-    * my_strncmp
-
-## Library repartition
-
-This is a reproduction of function repartition by original library name
-
-### LIBC
-* abs
-
-### MATH
-* pow
-
-### STDIO
-* printf
-* putchar
-* putnbr
-* putnbr_base
-* puts
-
-### STRING
-* strcat
-* strncat
-* strcpy
-* strncpy
-* strcmp
-* strncmp
-* strlen
-* strcapitalize
+## TO DO
+* norm application in list files
+* comment list files
+* complete my_printf functions
+* create a norm's english version
