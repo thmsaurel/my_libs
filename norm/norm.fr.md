@@ -1,27 +1,27 @@
 # Norme C
-## Règles classique
+## Règles classiques
 * Une ligne, y compris pour les commentaires, ne doit pas excéder 80 colonnes.
 * Une seule instruction par ligne.
 * Une fonction ne doit pas excéder 25 lignes entre les accolades.
 * Un fichier ne doit pas contenir plus de 5 fonctions
-* Chaque fichier source (.c, .h, Makefile) doit commencer pas un header.
+* Chaque fichier source (```.c```, ```.h```, ```Makefile```) doit commencer pas un header.
 * Il ne doit pas y avoir de commentaires dans le corps des fonctions.
 * Les commentaires sont commencés et terminés par une ligne seule.
-* Toutes les lignes intermédiaires s’alignent sur elles, et commencent par ‘**’
+* Toutes les lignes intermédiaires s'alignent entre elles, et commencent par ```**```
 
 ## HEADER
 ### Fichiers "C"
 ~~~ c
 /******************************************************************************
-*
-* File Name        : file.extension
-* Created By       : FirstName Name
-* Creation Date    : Month(String) {Day(int)}th  , Year(int)
-* Last Changed By  : FirstName Name
-* Last Change      : Month(String) {Day(int)}th  , Year(int) at {HOUR:MINUTES}
-* Purpose          : description
-*
-*******************************************************************************/
+ *
+ * File Name        : file.extension
+ * Created By       : FirstName Name
+ * Creation Date    : Month(String) {Day(int)}th  , Year(int)
+ * Last Changed By  : FirstName Name
+ * Last Change      : Month(String) {Day(int)}th  , Year(int) at {HOUR:MINUTES}
+ * Purpose          : description
+ *
+ *******************************************************************************/
 ~~~
 ### Fichier "Makefile"
 ~~~ gherkin
@@ -39,29 +39,29 @@
 ################################################################################
 ~~~
 
-## Règles Makefile
+## Règles "Makefile"
 ~~~ gherkin
 #### DEFAULT PARAMETERS ####
 EXECUTABLE=<Output Executable Name> 
 SOURCES=<Source1 Source2 .... SourceX>
 CFLAGS=<OPT1 OPT2 ... OPTX> 
 LDFLAGS=<OPT1 OPT2 ... OPTX> 
-CC=<Compiler> 
+    CC=<Compiler> 
 OBJECTS=$(SOURCES:.c=.o)  
 
 #### CUSTOM PARAMETERS ####
-<NAME>(CAPS LOCK)=your parameters
+    <NAME>(CAPS LOCK)=your parameters
 
 #### DEFAULT TARGETS ####
-all: $(EXECUTABLE)
+    all: $(EXECUTABLE)
     $(EXECUTABLE): $(OBJECTS)
-    $(CC) $(LDFLAGS) $(OBJECTS) -o $(EXECUTABLE)
+                     $(CC) $(LDFLAGS) $(OBJECTS) -o $(EXECUTABLE)
 
-clean:
-    rm $(OBJECTS) $(EXECUTABLE)
+                     clean:
+rm $(OBJECTS) $(EXECUTABLE)
 
 #### CUSTOM TARGET ####
-<Action Name>:
+    <Action Name>:
     Action 1
     Action 2
     Action X
@@ -74,9 +74,9 @@ clean:
 
 ~~~ c
 /*
-** Normal comment
-** with many lines
-*/
+ ** Normal comment
+ ** with many lines
+ */
 
 /* Normal comment with one line  */
 ~~~
@@ -95,7 +95,7 @@ int my_age = 20;
 ~~~
 
 * Si la variable est une constante (déclarée avec #DEFINE), elle doit être écrite en majuscules
-* Les variables globales doivent être précédées d'un 'G_'.
+* Les variables globales doivent être précédées d'un ```G_```.
 * Les variables doivent être déclarées au début de leur domaine d'utilité
 
 ~~~ c
@@ -117,8 +117,8 @@ int main(int argc, char *argv)
 }
 ~~~
 
-###### exception
-les variables utilisées dans les "for" peuvent être déclarées et initialisées dans la boucle en elle même
+#### exception
+les variables utilisées dans les ```for``` peuvent être déclarées et initialisées dans la boucle en elle même
 
 ~~~ c
 /* variable is declared in for instruction */
@@ -137,13 +137,10 @@ char *string = "paul"
 
 ### Fonctions
 - Les noms de fonctions sont en anglais
-- Une seule instruction par ligne
-- Une fonction ne doit pas contenir plus de 25 lignes entre les accolades
-- Aucun commentaire dans le corps d’une fonction
 - Une tabulation est composée de 4 espaces
-- Un fichier source doit comporter 5 fonctions au maximum
-- Interdit d'utiliser Goto
-- Interdit d'utiliser Switch Case
+- Interdit d'utiliser :
+    * Goto
+    * Switch Case
 
 ~~~ c
 /* in file_name.h */
@@ -153,8 +150,8 @@ int test_function(int i);
 /* in file_name.c */
 
 /*
-** This is the function header
-*/
+ ** This is the function header
+ */
 int test_function (int i)
 {
     write(1, i, sizeof(int));
