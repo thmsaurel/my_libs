@@ -3,7 +3,7 @@
  * File Name         : my_stdio.c
  * Created By        : Thomas Aurel
  * Creation Date     : January 15th, 2015
- * Last Change       : February 24th, 2015 at 00:54:05
+ * Last Change       : February 24th, 2015 at 01:00:26
  * Last Changed By   : Thomas Aurel
  * Purpose           : standard input/output library functions
  *
@@ -45,7 +45,7 @@ int my_puts(char *str){
  **/
 int my_putnbr_base(int i, int b){
    int result = verify_inf_size(b, 37);
-   if(result == 0){
+   if(result != 0){
       return -1;
    }
    if(i<0){

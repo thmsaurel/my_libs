@@ -3,7 +3,7 @@
  * File Name         : my_stdio.1.c
  * Created By        : Thomas Aurel
  * Creation Date     : January 18th, 2015
- * Last Change       : February 24th, 2015 at 00:53:09
+ * Last Change       : February 24th, 2015 at 01:05:15
  * Last Changed By   : Thomas Aurel
  * Purpose           : standard input/output library functions (second file)
  *
@@ -78,7 +78,7 @@ int my_printf(char *format, ...){
  **/
 int my_putfloat_base(float f, int b){
    int i = f;
-  f = (f - i) * b;
+   f = (f - i) * b;
    my_putnbr_base(i, b);
    my_putchar('.');
    do{
