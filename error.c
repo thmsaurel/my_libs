@@ -3,7 +3,7 @@
  * File Name         : error.c
  * Created By        : Thomas Aurel
  * Creation Date     : January 31th, 2015
- * Last Change       : February 24th, 2015 at 00:51:25
+ * Last Change       : March  1th, 2015 at 23:06:52
  * Last Changed By   : Thomas Aurel
  * Purpose           : Configure C error
  *
@@ -48,16 +48,20 @@ int verify_inf_size(int value, int expected){
  *          char* tab, char value
  * return:  return 1 if c is in tab
  **/
-int verify_char_tab(char c, char* tab){
+int verify_char_tab(char c, char* tab, int tsize){
    int result = 0;
-   for(int i=0; i<my_strlen(tab); i++){
+   for(int i=0; i<tsize; i++){
       if(c == tab[i]){
          result = 1;
       }
    }
-   if(result == 0){
-      write(1, "Error: unexpected char", 22*sizeof(char));
-      exit(3);
-   }
    return result;
+}
+
+int verify_char(char c1, char c2){
+        if (c1 == c2){
+            write(1, "Error: Unexpected character", 27*sizeof(char));
+            exit(3);
+        }
+        return 1;
 }
