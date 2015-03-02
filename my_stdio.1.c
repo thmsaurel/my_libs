@@ -3,7 +3,7 @@
  * File Name         : my_stdio.1.c
  * Created By        : Thomas Aurel
  * Creation Date     : January 18th, 2015
- * Last Change       : March  1th, 2015 at 23:24:00
+ * Last Change       : March  2th, 2015 at 15:12:35
  * Last Changed By   : Thomas Aurel
  * Purpose           : standard input/output library functions (second file)
  *
@@ -18,11 +18,11 @@
  *    DONE: +, #
  *    TODO: -, ' ', 0
  *
- * width :
- *    TODO: \w, *
+ * width : \w
+ *    TODO: *
  *
- * precision :
- *    TODO: .\w, .*
+ * precision : \w
+ *    TODO: .*
  *
  *
  * specifier :
@@ -33,6 +33,7 @@
 #include "my_stdio.h"
 #include "my_string.h"
 #include "error.h"
+#include "my_math.h"
 #include <stdarg.h>
 
 int G_flags_size = 5;
@@ -50,17 +51,12 @@ char G_precision[11] = {
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*'
 };
 
-int G_specifier_size = 10;
+int G_specifier_size = 11;
 char G_specifier[11] = {
     'c', 's', '%', 'd', 'i', 'o', 'x', 'X', 'f', 'F'
 };
 
-int print_flag(char c){
-    /*if (c == '+')*/
-    return 0;
-}
-
-int print_specifier(char c, va_list ap, char f, int w){
+int print_specifier(char c, va_list ap, char f, int w, int p){
     if (c == '%'){
         my_putchar('%');
     } else if(c == 's'){
@@ -68,17 +64,17 @@ int print_specifier(char c, va_list ap, char f, int w){
     } else if(c == 'c'){
         my_putchar((char) va_arg(ap, int));
     } else if(c == 'i' || c == 'd'){
-        my_putnbr(va_arg(ap, int), f);
+        my_putnbr(va_arg(ap, int), f, w);
     } else if(c == 'o'){
-        my_putnbr_base(va_arg(ap, int), 8, 0, f);
+        my_putnbr_base(va_arg(ap, int), 8, 0, f, w);
     } else if(c == 'x'){
-        my_putnbr_base(va_arg(ap, int), 16, 0, f);
+        my_putnbr_base(va_arg(ap, int), 16, 0, f, w);
     } else if(c == 'X'){
-        my_putnbr_base(va_arg(ap, int), 16, 1, f);
+        my_putnbr_base(va_arg(ap, int), 16, 1, f, w);
     } else if(c == 'f' ){
-        my_putfloat((float) va_arg(ap, double) , 0, f);
+        my_putdouble(va_arg(ap, double) , 0, f, w, p);
     } else if(c == 'F'){
-        my_putfloat((float) va_arg(ap, double) , 1, f);
+        my_putdouble(va_arg(ap, double) , 1, f, w, p);
     }
     return 0;
 }
@@ -87,13 +83,10 @@ int print_specifier(char c, va_list ap, char f, int w){
  * This is the main function for printf
  **/
 int my_printf(char *format, ...){
-    /*Variable Declarations*/
-    int text_size = my_strlen(format);
+    int text_size = my_strlen(format), width = 0, precision = 0;
     va_list ap;
     char flag = '1';
-    int width = 0;
-        va_start(ap, format);
-    /*Function Body*/
+    va_start(ap, format);
     for(int i=0; i<text_size; i++){
         if (format[i] == '%'){
             i += 1;
@@ -105,16 +98,33 @@ int my_printf(char *format, ...){
                 do{
                     width = width*10 + (format[i] - '0');
                     i += 1;
-                }while('0' <= format[i] <= '9');
+                }while('0' <= format[i] && format[i] <= '9');
+            }
+            if(format[i] == '.'){
+                do{
+                    precision =  precision*10 + (format[i] - '0');
+                    i += 1;
+                }while('0' <= format[i] && format[i] <= '9');
             }
             if(verify_char_tab(format[i], G_specifier, G_specifier_size)){
-                print_specifier(format[i], ap, flag, width);
+                print_specifier(format[i], ap, flag, width, precision);
             }
         } else {
             my_putchar(format[i]);
         }
     }
-    /*End*/
     va_end(ap);
     return 0;
+}
+
+/**
+ *
+ **/
+int int_width(int i, int b, int w){
+    int result = 0;
+    if (i < my_pow(b,w) && w != 0){
+        my_putchar('0');
+        result = int_width(i, b, w-1);
+    }
+    return result;
 }

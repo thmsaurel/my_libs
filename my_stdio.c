@@ -3,7 +3,7 @@
  * File Name         : my_stdio.c
  * Created By        : Thomas Aurel
  * Creation Date     : January 15th, 2015
- * Last Change       : March  1th, 2015 at 22:20:16
+ * Last Change       : March  2th, 2015 at 14:42:03
  * Last Changed By   : Thomas Aurel
  * Purpose           : standard input/output library functions
  *
@@ -45,45 +45,45 @@ int my_puts(char *str){
  *          char f, the flag character
  * return:  0 on success, else -1
  **/
-int my_putnbr_base(int i, int b, int u, char f){
+int my_putnbr_base(int i, int b, int u, char f, int w){
     int result = verify_inf_size(b, 37);
-    if(result != 0){
-        return -1;
-    }
+    if(result != 0){return -1;}
     if(i<0){
         my_putchar('-');
         i = my_abs(i);
-    } else if (f == '+'){
-        my_putchar('+');
+    } else if (f == '+'){my_putchar('+');}
+    hashspace_flag(f, b, u);
+    if (w > 0){int_width(i, b, w);}
+    if (i > b){
+        result = my_putnbr_base((i / b), b, u, '1', 0);
     }
-    if (f == '#'){
-        if (b == 8){
-            my_putchar('0');
-        }else if (b == 16){
-            if ( u == 1){
-                my_puts("0X");
-            }else{
-                my_puts("0x");
-            }
-        }
+    if((i % b) < 10){
+        my_putchar('0' + (i % b));
+    } else if((i % b) < 37){
+        my_putchar(( u == 1 ? 'A' : 'a') + ((i % b) - 10));
     }
-        if (i > b){
-            result = my_putnbr_base((i / b), b, u, '1');
-        }
-        if((i % b) < 10){
-            my_putchar('0' + (i % b));
-        } else if((i % b) < 37){
-            my_putchar('A' + ((i % b) - 10));
-        }
-        return 0;
-    }
+    return 0;
+}
 
-    /**
-     * output a number on base 10
-     *
-     * param:   int i, the integer to write
-     * return:  0 on success, else -1
-     **/
-    int my_putnbr(int i, char f){
-        return my_putnbr_base(i, 10, 0, f);
+/**
+ * output a number on base 10
+ *
+ * param:   int i, the integer to write
+ * return:  0 on success, else -1
+ **/
+int my_putnbr(int i, char f, int w){
+    return my_putnbr_base(i, 10, 0, f, w);
+}
+
+int hashspace_flag(char f, int b, int u){
+    if (f == '#' && (b == 8 || b == 16)){
+        my_putchar('0');
+        if (b == 16){
+            my_putchar((u == 1? 'X': 'x'));
+        }
     }
+    if (f == ' '){
+        my_putchar(' ');
+    }
+    return 0;
+}
