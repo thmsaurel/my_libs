@@ -3,7 +3,7 @@
 * File Name         : my_stdio.h
 * Created By        : Thomas Aurel
 * Creation Date     : January 15th, 2015
-* Last Change       : March  2th, 2015 at 15:00:11
+* Last Change       : March  2th, 2015 at 22:20:25
 * Last Changed By   : Thomas Aurel
 * Purpose           : standard input/output library functions
 *
@@ -12,8 +12,8 @@
 
 /* my_stdio.c */
 int my_putchar(char c);
-int my_putnbr(int i, char f, int w);
-int my_putnbr_base(int i, int b, int u, char f, int w);
+char* my_putnbr(int i, char f, int w);
+char* my_putnbr_base(int i, int b, int u, char f, int w);
 int my_puts(char *str);
 int hashspace_flag(char f, int b, int u);
 

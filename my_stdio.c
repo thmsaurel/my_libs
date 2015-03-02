@@ -3,12 +3,13 @@
  * File Name         : my_stdio.c
  * Created By        : Thomas Aurel
  * Creation Date     : January 15th, 2015
- * Last Change       : March  2th, 2015 at 14:42:03
+ * Last Change       : March  2th, 2015 at 23:00:01
  * Last Changed By   : Thomas Aurel
  * Purpose           : standard input/output library functions
  *
  *******************************************************************************/
 #include <unistd.h>
+#include <stdlib.h>
 #include "error.h"
 #include "my_string.h"
 #include "my_stdio.h"
@@ -45,24 +46,25 @@ int my_puts(char *str){
  *          char f, the flag character
  * return:  0 on success, else -1
  **/
-int my_putnbr_base(int i, int b, int u, char f, int w){
-    int result = verify_inf_size(b, 37);
-    if(result != 0){return -1;}
-    if(i<0){
-        my_putchar('-');
+char * my_putnbr_base(int i, int b, int u, char f, int w){
+    char *nbr = malloc((w != 0 ? w : 10) * sizeof(char));
+    char c1;
+    verify_inf_size(b, 37);
+    if(i < 0 || f == '+'){
+        char sign = ( i < 0 ? '-' : '+');
         i = my_abs(i);
-    } else if (f == '+'){my_putchar('+');}
+        nbr = my_strcat(nbr, &sign);
+    }
     hashspace_flag(f, b, u);
-    if (w > 0){int_width(i, b, w);}
-    if (i > b){
-        result = my_putnbr_base((i / b), b, u, '1', 0);
-    }
+    if (i > b)
+        nbr = my_strcat(nbr, my_putnbr_base((i / b), b, u, '1', 0));
     if((i % b) < 10){
-        my_putchar('0' + (i % b));
+        c1 = ('0' + (i % b));
     } else if((i % b) < 37){
-        my_putchar(( u == 1 ? 'A' : 'a') + ((i % b) - 10));
+        c1 = (( u == 1 ? 'A' : 'a') + ((i % b) - 10));
     }
-    return 0;
+    nbr = my_strcat(nbr, &c1);
+    return nbr;
 }
 
 /**
@@ -71,7 +73,7 @@ int my_putnbr_base(int i, int b, int u, char f, int w){
  * param:   int i, the integer to write
  * return:  0 on success, else -1
  **/
-int my_putnbr(int i, char f, int w){
+char* my_putnbr(int i, char f, int w){
     return my_putnbr_base(i, 10, 0, f, w);
 }
 

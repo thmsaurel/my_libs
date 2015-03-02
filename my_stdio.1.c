@@ -3,7 +3,7 @@
  * File Name         : my_stdio.1.c
  * Created By        : Thomas Aurel
  * Creation Date     : January 18th, 2015
- * Last Change       : March  2th, 2015 at 15:12:35
+ * Last Change       : March  2th, 2015 at 22:20:25
  * Last Changed By   : Thomas Aurel
  * Purpose           : standard input/output library functions (second file)
  *
@@ -64,7 +64,7 @@ int print_specifier(char c, va_list ap, char f, int w, int p){
     } else if(c == 'c'){
         my_putchar((char) va_arg(ap, int));
     } else if(c == 'i' || c == 'd'){
-        my_putnbr(va_arg(ap, int), f, w);
+        my_puts(my_putnbr(va_arg(ap, int), f, w));
     } else if(c == 'o'){
         my_putnbr_base(va_arg(ap, int), 8, 0, f, w);
     } else if(c == 'x'){
