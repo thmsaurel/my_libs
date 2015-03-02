@@ -3,7 +3,7 @@
  * File Name         : my_stdio.c
  * Created By        : Thomas Aurel
  * Creation Date     : January 15th, 2015
- * Last Change       : March  2th, 2015 at 23:00:01
+ * Last Change       : March  2th, 2015 at 23:10:20
  * Last Changed By   : Thomas Aurel
  * Purpose           : standard input/output library functions
  *
@@ -60,9 +60,8 @@ char * my_putnbr_base(int i, int b, int u, char f, int w){
         nbr = my_strcat(nbr, my_putnbr_base((i / b), b, u, '1', 0));
     if((i % b) < 10){
         c1 = ('0' + (i % b));
-    } else if((i % b) < 37){
+    } else if((i % b) < 37)
         c1 = (( u == 1 ? 'A' : 'a') + ((i % b) - 10));
-    }
     nbr = my_strcat(nbr, &c1);
     return nbr;
 }
@@ -77,15 +76,13 @@ char* my_putnbr(int i, char f, int w){
     return my_putnbr_base(i, 10, 0, f, w);
 }
 
-int hashspace_flag(char f, int b, int u){
+char * hashspace_flag(char f, int b, int u){
     if (f == '#' && (b == 8 || b == 16)){
         my_putchar('0');
-        if (b == 16){
-            my_putchar((u == 1? 'X': 'x'));
-        }
+        if (b == 16)
+            my_putchar((u == 1 ? 'X': 'x'));
     }
-    if (f == ' '){
+    if (f == ' ')
         my_putchar(' ');
-    }
     return 0;
 }

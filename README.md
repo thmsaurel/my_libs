@@ -22,3 +22,4 @@ Now it's use to work with :
 * [ ] norm application in list files
 * [ ] comment list files
 * [ ] complete my_printf functions
+* [ ] use string instead og write character on memory
